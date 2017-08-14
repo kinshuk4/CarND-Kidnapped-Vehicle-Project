@@ -131,6 +131,14 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
     //   3.33
     //   http://planning.cs.uiuc.edu/node99.html
     cout << "Begin updateWeights" << endl;
+    // Bringing out all the landmark based calculation out of loop
+    // as it is kind of remains same
+    double std_x = std_landmark[0];
+    double std_y = std_landmark[1];
+    double gauss_norm = (1 / (2 * M_PI * std_x * std_y));
+    double std_x_power = 2 * pow(std_x, 2);
+    double std_y_power = 2 * pow(std_y, 2);
+
     for (int i = 0; i < num_particles; i++) {
 
         // get the particle x, y coordinates
@@ -166,14 +174,6 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
 
         // reset weight
         particles[i].weight = 1.0;
-
-        // Bringing out all the landmark based calculation out of loop
-        // as it is kind of remains same
-        double std_x = std_landmark[0];
-        double std_y = std_landmark[1];
-        double gauss_norm = (1 / (2 * M_PI * std_x * std_y));
-        double std_x_power = 2 * pow(std_x, 2);
-        double std_y_power = 2 * pow(std_y, 2);
 
         for (unsigned int j = 0; j < transformed_observations.size(); j++) {
 
