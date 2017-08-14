@@ -97,6 +97,8 @@ public:
 	 *   the new set of particles.
 	 */
 	void resample();
+    void discrete_resample();
+    void resampling_wheel_resample();
 
 	/*
 	 * Set a particles list of associations, along with the associations calculated world x,y coordinates
